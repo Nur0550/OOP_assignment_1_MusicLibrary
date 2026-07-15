@@ -2,15 +2,16 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // ======================================
-        // Создаем музыкальную библиотеку
-        // ======================================
+        // ===========================
+        // Создаем DAO объекты
+        // ===========================
 
-        MusicLibrary library = new MusicLibrary();
+        ArtistDAO artistDAO = new ArtistDAO();
+        SongDAO songDAO = new SongDAO();
 
-        // ======================================
+        // ===========================
         // Создаем исполнителей
-        // ======================================
+        // ===========================
 
         Artist artist1 = new Artist(
                 "The Weeknd",
@@ -24,9 +25,14 @@ public class Main {
                 34
         );
 
-        // ======================================
-        // Создаем песни
-        // ======================================
+        // ===========================
+        // CREATE
+        // ===========================
+
+        System.out.println("===== CREATE =====");
+
+        artistDAO.addArtist(artist1);
+        artistDAO.addArtist(artist2);
 
         Song song1 = new Song(
                 "Blinding Lights",
@@ -42,153 +48,75 @@ public class Main {
                 artist2
         );
 
-        Song song3 = new Song(
-                "Starboy",
-                "R&B",
-                230,
-                artist1
-        );
+        // Предполагаем, что artist1 получил ID = 1,
+        // а artist2 получил ID = 2.
+        songDAO.addSong(song1, 1);
+        songDAO.addSong(song2, 2);
 
-        // ======================================
-        // Добавляем песни в библиотеку
-        // ======================================
+        // ===========================
+        // READ
+        // ===========================
 
-        library.addSong(song1);
-        library.addSong(song2);
-        library.addSong(song3);
+        System.out.println("\n===== ARTISTS =====");
 
-        // ======================================
-        // Создаем пользовательский плейлист
-        // ======================================
-
-        Playlist playlist = new Playlist(
-                "My Favorite Songs",
-                "Nurmuhammad"
-        );
-
-        // Добавляем песни в плейлист
-
-        playlist.addSong(song1);
-        playlist.addSong(song3);
-
-        // ======================================
-        // Вывод исполнителей
-        // ======================================
-
-        System.out.println("========== ARTISTS ==========");
-
-        System.out.println(artist1);
-        System.out.println(artist2);
-
-        // ======================================
-        // Вывод библиотеки
-        // ======================================
-
-        library.displayLibrary();
-
-        // ======================================
-        // Вывод плейлиста
-        // ======================================
-
-        playlist.displayPlaylist();
-
-        // ======================================
-        // Демонстрация полиморфизма
-        // ======================================
-
-        System.out.println("\n========== PLAY ==========");
-
-        song1.play();
-        song2.play();
-        song3.play();
-
-        // ======================================
-        // Поиск песни
-        // ======================================
-
-        System.out.println("\n========== SEARCH ==========");
-
-        Song foundSong = library.findSongByTitle("Starboy");
-
-        if (foundSong != null) {
-            System.out.println(foundSong);
-        } else {
-            System.out.println("Song not found.");
+        for (Artist artist : artistDAO.getAllArtists()) {
+            System.out.println(artist);
         }
 
-        // ======================================
-        // Фильтрация
-        // ======================================
+        System.out.println("\n===== SONGS =====");
 
-        System.out.println("\n========== FILTER ==========");
+        for (String song : songDAO.getAllSongs()) {
+            System.out.println(song);
+        }
 
-        library.filterByGenre("Pop");
+        // ===========================
+        // UPDATE
+        // ===========================
 
-        // ======================================
-        // Сортировка по названию
-        // ======================================
+        System.out.println("\n===== UPDATE =====");
 
-        System.out.println("\n========== SORT BY TITLE ==========");
+        artistDAO.updateArtist(1, "USA");
+        songDAO.updateSongGenre(1, "Synthwave");
 
-        library.sortByTitle();
-        library.displayLibrary();
+        System.out.println("Database updated.");
 
-        // ======================================
-        // Сортировка по длительности
-        // ======================================
+        // ===========================
+        // READ AFTER UPDATE
+        // ===========================
 
-        System.out.println("\n========== SORT BY DURATION ==========");
+        System.out.println("\n===== AFTER UPDATE =====");
 
-        library.sortByDuration();
-        library.displayLibrary();
+        for (Artist artist : artistDAO.getAllArtists()) {
+            System.out.println(artist);
+        }
 
-        // ======================================
-        // equals()
-        // ======================================
+        for (String song : songDAO.getAllSongs()) {
+            System.out.println(song);
+        }
 
-        System.out.println("\n========== EQUALS ==========");
+        // ===========================
+        // DELETE
+        // ===========================
 
-        System.out.println(
-                "song1 equals song2: "
-                        + song1.equals(song2)
-        );
+        System.out.println("\n===== DELETE =====");
 
-        System.out.println(
-                "artist1 equals artist2: "
-                        + artist1.equals(artist2)
-        );
+        songDAO.deleteSong(2);
+        artistDAO.deleteArtist(2);
 
-        // ======================================
-        // hashCode()
-        // ======================================
+        // ===========================
+        // FINAL RESULT
+        // ===========================
 
-        System.out.println("\n========== HASHCODE ==========");
+        System.out.println("\n===== FINAL DATABASE =====");
 
-        System.out.println(
-                "song1 hashCode: "
-                        + song1.hashCode()
-        );
+        for (Artist artist : artistDAO.getAllArtists()) {
+            System.out.println(artist);
+        }
 
-        System.out.println(
-                "artist1 hashCode: "
-                        + artist1.hashCode()
-        );
-
-        // ======================================
-        // Количество песен
-        // ======================================
-
-        System.out.println("\n========== SONG COUNT ==========");
-
-        System.out.println(
-                "Songs in library: "
-                        + library.getSongCount()
-        );
-
-        System.out.println(
-                "Songs in playlist: "
-                        + playlist.getSongCount()
-        );
+        for (String song : songDAO.getAllSongs()) {
+            System.out.println(song);
+        }
 
     }
+
 }

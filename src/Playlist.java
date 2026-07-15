@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 
-// Класс Playlist хранит пользовательский плейлист.
+// ======================================================
+// Класс Playlist
+// Хранит пользовательский плейлист.
+// ======================================================
+
 public class Playlist {
 
     // Название плейлиста
@@ -9,68 +13,73 @@ public class Playlist {
     // Владелец плейлиста
     private String owner;
 
-    // Список песен в плейлисте
+    // Коллекция песен
     private ArrayList<Song> songs;
 
     // Конструктор
     public Playlist(String playlistName, String owner) {
+
         this.playlistName = playlistName;
         this.owner = owner;
+
+        // Создаем пустой список песен
         songs = new ArrayList<>();
     }
 
-    // Getter названия плейлиста
-    public String getPlaylistName() {
-        return playlistName;
-    }
-
-    // Setter названия плейлиста
-    public void setPlaylistName(String playlistName) {
-        this.playlistName = playlistName;
-    }
-
-    // Getter владельца
-    public String getOwner() {
-        return owner;
-    }
-
-    // Setter владельца
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
-    // Добавить песню в плейлист
+    // Добавить песню
     public void addSong(Song song) {
+
         songs.add(song);
+
+        System.out.println(song.getTitle() + " added to playlist.");
     }
 
-    // Удалить песню из плейлиста
+    // Удалить песню
     public void removeSong(Song song) {
+
         songs.remove(song);
+
+        System.out.println(song.getTitle() + " removed from playlist.");
     }
 
-    // Вывести все песни плейлиста
+    // Показать плейлист
     public void displayPlaylist() {
 
-        System.out.println("\n===== PLAYLIST =====");
+        System.out.println("\n========== PLAYLIST ==========");
         System.out.println("Playlist: " + playlistName);
         System.out.println("Owner: " + owner);
 
         if (songs.isEmpty()) {
+
             System.out.println("Playlist is empty.");
             return;
-        }
 
-        System.out.println("\nSongs:");
+        }
 
         for (Song song : songs) {
             System.out.println(song);
         }
+
     }
 
-    // Количество песен в плейлисте
+    // Количество песен
     public int getSongCount() {
         return songs.size();
+    }
+
+    // Получить список песен
+    public ArrayList<Song> getSongs() {
+        return songs;
+    }
+
+    // Название плейлиста
+    public String getPlaylistName() {
+        return playlistName;
+    }
+
+    // Владелец
+    public String getOwner() {
+        return owner;
     }
 
 }

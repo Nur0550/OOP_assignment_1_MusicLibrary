@@ -1,9 +1,14 @@
-// Абстрактный класс Music.
-// Он содержит общие свойства для всех музыкальных объектов.
+// ======================================================
+// Абстрактный класс Music
+// Родительский класс для всех музыкальных объектов.
+// ======================================================
+
 public abstract class Music {
 
-    // Общие поля
+    // Название музыкального произведения
     private String title;
+
+    // Длительность в секундах
     private int duration;
 
     // Конструктор
@@ -12,27 +17,27 @@ public abstract class Music {
         this.duration = duration;
     }
 
-    // Getter для названия
+    // Получить название
     public String getTitle() {
         return title;
     }
 
-    // Setter для названия
+    // Изменить название
     public void setTitle(String title) {
         this.title = title;
     }
 
-    // Getter для длительности
+    // Получить длительность
     public int getDuration() {
         return duration;
     }
 
-    // Setter для длительности
+    // Изменить длительность
     public void setDuration(int duration) {
         this.duration = duration;
     }
 
     // Абстрактный метод.
-    // Каждый наследник обязан реализовать его самостоятельно.
+    // Каждый наследник должен реализовать его самостоятельно.
     public abstract void play();
 }

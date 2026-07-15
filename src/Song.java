@@ -1,85 +1,85 @@
-// Класс Song наследуется от класса Music.
+import java.util.Objects;
+
+// ======================================================
+// Класс Song
+// Наследуется от абстрактного класса Music.
+// ======================================================
+
 public class Song extends Music {
 
-    //extends означает, что Song наследует все возможности класса Music.
-
+    // Жанр песни
     private String genre;
+
+    // Исполнитель песни
     private Artist artist;
 
-    // Конструктор.
-    // super(...) вызывает конструктор родительского класса Music.
+    // Конструктор
     public Song(String title, String genre, int duration, Artist artist) {
+
+        // Вызываем конструктор родительского класса
         super(title, duration);
+
         this.genre = genre;
         this.artist = artist;
     }
 
-    // Getter жанра
+    // Получить жанр
     public String getGenre() {
         return genre;
     }
 
-    // Setter жанра
+    // Изменить жанр
     public void setGenre(String genre) {
         this.genre = genre;
     }
 
-    // Getter исполнителя
+    // Получить исполнителя
     public Artist getArtist() {
         return artist;
     }
 
-    // Setter исполнителя
+    // Изменить исполнителя
     public void setArtist(Artist artist) {
         this.artist = artist;
     }
 
-    // Реализация абстрактного метода play()
+    // Реализация абстрактного метода из Music
     @Override
     public void play() {
-        System.out.println("Now playing: " + getTitle());
+        System.out.println("Playing: " + getTitle() + " by " + artist.getName());
     }
 
-    // Переопределяем метод toString()
+    // Красивый вывод объекта
     @Override
     public String toString() {
         return "Song{" +
                 "title='" + getTitle() + '\'' +
                 ", genre='" + genre + '\'' +
                 ", duration=" + getDuration() +
-                ", artist='" + artist.getName() + '\'' +
+                ", artist=" + artist.getName() +
                 '}';
     }
 
-    // Сравнение двух песен
+    // Сравнение объектов
     @Override
     public boolean equals(Object obj) {
 
-        if (this == obj)
-            return true;
+        if (this == obj) return true;
 
-        if (obj == null || getClass() != obj.getClass())
-            return false;
+        if (obj == null || getClass() != obj.getClass()) return false;
 
-        Song other = (Song) obj;
+        Song song = (Song) obj;
 
-        return getTitle().equals(other.getTitle()) &&
-                artist.getName().equals(other.artist.getName());
+        return getDuration() == song.getDuration() &&
+                Objects.equals(getTitle(), song.getTitle()) &&
+                Objects.equals(genre, song.genre) &&
+                Objects.equals(artist, song.artist);
     }
 
-    // hashCode должен соответствовать equals
+    // Генерация hashCode
     @Override
     public int hashCode() {
-        return (getTitle() + artist.getName()).hashCode();
-    }
-
-    // Старый метод оставим, чтобы красиво выводить информацию
-    public void displayInfo() {
-
-        System.out.println("Song: " + getTitle());
-        System.out.println("Genre: " + genre);
-        System.out.println("Duration: " + getDuration() + " sec");
-        System.out.println("Artist: " + artist.getName());
+        return Objects.hash(getTitle(), genre, getDuration(), artist);
     }
 
 }

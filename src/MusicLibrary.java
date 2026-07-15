@@ -2,11 +2,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-// Главная музыкальная библиотека.
-// Здесь хранится вся коллекция песен.
+// ======================================================
+// Класс MusicLibrary
+// Представляет музыкальную библиотеку.
+// ======================================================
+
 public class MusicLibrary {
 
-    // Общая коллекция песен
+    // Коллекция песен
     private ArrayList<Song> songs;
 
     // Конструктор
@@ -38,17 +41,26 @@ public class MusicLibrary {
         return null;
     }
 
-    // Поиск всех песен определенного жанра
+    // Фильтрация по жанру
     public void filterByGenre(String genre) {
 
-        System.out.println("\nSongs with genre: " + genre);
+        System.out.println("\n===== FILTER BY GENRE =====");
+
+        boolean found = false;
 
         for (Song song : songs) {
 
             if (song.getGenre().equalsIgnoreCase(genre)) {
+
                 System.out.println(song);
+                found = true;
+
             }
 
+        }
+
+        if (!found) {
+            System.out.println("No songs found.");
         }
 
     }
@@ -56,23 +68,28 @@ public class MusicLibrary {
     // Сортировка по названию
     public void sortByTitle() {
 
-        Collections.sort(songs,
-                Comparator.comparing(Song::getTitle));
+        Collections.sort(songs, Comparator.comparing(Song::getTitle));
 
     }
 
     // Сортировка по длительности
     public void sortByDuration() {
 
-        Collections.sort(songs,
-                Comparator.comparingInt(Song::getDuration));
+        Collections.sort(songs, Comparator.comparingInt(Song::getDuration));
 
     }
 
-    // Вывод всей библиотеки
+    // Вывод библиотеки
     public void displayLibrary() {
 
         System.out.println("\n===== MUSIC LIBRARY =====");
+
+        if (songs.isEmpty()) {
+
+            System.out.println("Library is empty.");
+            return;
+
+        }
 
         for (Song song : songs) {
             System.out.println(song);
@@ -80,9 +97,14 @@ public class MusicLibrary {
 
     }
 
-    // Возвращает количество песен
+    // Получить количество песен
     public int getSongCount() {
         return songs.size();
+    }
+
+    // Получить список песен
+    public ArrayList<Song> getSongs() {
+        return songs;
     }
 
 }

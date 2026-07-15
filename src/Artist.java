@@ -1,8 +1,19 @@
-// Класс Artist описывает исполнителя.
+import java.util.Objects;
+
+// ======================================================
+// Класс Artist
+// Хранит информацию об исполнителе.
+// ======================================================
+
 public class Artist {
 
+    // Имя исполнителя
     private String name;
+
+    // Страна
     private String country;
+
+    // Возраст
     private int age;
 
     // Конструктор
@@ -12,32 +23,32 @@ public class Artist {
         this.age = age;
     }
 
-    // Getter имени
+    // Получить имя
     public String getName() {
         return name;
     }
 
-    // Setter имени
+    // Изменить имя
     public void setName(String name) {
         this.name = name;
     }
 
-    // Getter страны
+    // Получить страну
     public String getCountry() {
         return country;
     }
 
-    // Setter страны
+    // Изменить страну
     public void setCountry(String country) {
         this.country = country;
     }
 
-    // Getter возраста
+    // Получить возраст
     public int getAge() {
         return age;
     }
 
-    // Setter возраста
+    // Изменить возраст
     public void setAge(int age) {
         this.age = age;
     }
@@ -52,31 +63,25 @@ public class Artist {
                 '}';
     }
 
-    // Сравнение объектов Artist
+    // Сравнение объектов
     @Override
     public boolean equals(Object obj) {
 
-        if (this == obj)
-            return true;
+        if (this == obj) return true;
 
-        if (obj == null || getClass() != obj.getClass())
-            return false;
+        if (obj == null || getClass() != obj.getClass()) return false;
 
-        Artist other = (Artist) obj;
+        Artist artist = (Artist) obj;
 
-        return name.equals(other.name) &&
-                country.equals(other.country);
+        return age == artist.age &&
+                Objects.equals(name, artist.name) &&
+                Objects.equals(country, artist.country);
     }
 
-    // hashCode должен соответствовать equals
+    // Генерация hashCode
     @Override
     public int hashCode() {
-        return (name + country).hashCode();
-    }
-
-    // Вывод информации
-    public void displayInfo() {
-        System.out.println(this);
+        return Objects.hash(name, country, age);
     }
 
 }
